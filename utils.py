@@ -11,12 +11,15 @@ def load_weather(
     end_date: str,  # "%Y-%m-%d"
     latitude: float,
     longitude: float,
+    CROSS_KEY: str = None,
 ) -> pd.DataFrame:
     """load weather data using visualcrossing API"""
-    # Load the CROSS_KEY from config.json
-    with open("config.json", "r") as file:
-        config = json.load(file)
-    CROSS_KEY = config.get("CROSS_KEY")
+
+    if CROSS_KEY is None:
+        # Load the CROSS_KEY from config.json
+        with open("config.json", "r") as file:
+            config = json.load(file)
+        CROSS_KEY = config.get("CROSS_KEY")
 
     url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{latitude}%2C%20{longitude}/{start_date}/{end_date}?unitGroup=metric&elements=datetime%2Ctempmax%2Ctempmin%2Ctemp%2Csolarenergy&include=days%2Cobs&key={CROSS_KEY}&contentType=json"
 
@@ -122,9 +125,17 @@ def compare(df1_, df2_):
 
 
 def run(
-    old_start_date, old_end_date, new_start_date, new_end_date, latitude, longitude
+    old_start_date,
+    old_end_date,
+    new_start_date,
+    new_end_date,
+    latitude,
+    longitude,
+    CROSS_KEY=None,
 ):
-    weather = load_weather(old_start_date, old_end_date, latitude, longitude)
+    weather = load_weather(
+        old_start_date, old_end_date, latitude, longitude, CROSS_KEY=CROSS_KEY
+    )
     new_weather = load_weather(new_start_date, new_end_date, latitude, longitude)
 
     avg_weather = average(weather, weeks=4)
