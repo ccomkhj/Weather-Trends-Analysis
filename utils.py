@@ -136,7 +136,9 @@ def run(
     weather = load_weather(
         old_start_date, old_end_date, latitude, longitude, CROSS_KEY=CROSS_KEY
     )
-    new_weather = load_weather(new_start_date, new_end_date, latitude, longitude)
+    new_weather = load_weather(
+        new_start_date, new_end_date, latitude, longitude, CROSS_KEY=CROSS_KEY
+    )
 
     avg_weather = average(weather, weeks=4)
     new_avg_weather = average(new_weather, weeks=4)
