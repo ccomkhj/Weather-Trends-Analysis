@@ -18,7 +18,7 @@ def load_weather(
         config = json.load(file)
     CROSS_KEY = config.get("CROSS_KEY")
 
-    url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{latitude}%2C%20{longitude}/{start_date}/{end_date}?unitGroup=metric&elements=datetime%2Ctempmax%2Ctempmin%2Ctemp%2Csolarenergy&include=days%2Cobs&key{CROSS_KEY}=&contentType=json"
+    url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{latitude}%2C%20{longitude}/{start_date}/{end_date}?unitGroup=metric&elements=datetime%2Ctempmax%2Ctempmin%2Ctemp%2Csolarenergy&include=days%2Cobs&key={CROSS_KEY}&contentType=json"
 
     response = requests.request(
         "GET",
